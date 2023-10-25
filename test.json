@@ -1,0 +1,32 @@
+{
+    "bpi": {
+        "EUR": {
+            "code": "EUR",
+            "description": "Euro",
+            "rate": "33,938.9826",
+            "rate_float": 33938.9826,
+            "symbol": "&euro;"
+        },
+        "GBP": {
+            "code": "GBP",
+            "description": "British Pound Sterling",
+            "rate": "29,111.7988",
+            "rate_float": 29111.7988,
+            "symbol": "&pound;"
+        },
+        "USD": {
+            "code": "USD",
+            "description": "United States Dollar",
+            "rate": "34,839.7290",
+            "rate_float": 34839.729,
+            "symbol": "&#36;"
+        }
+    },
+    "chartName": "Bitcoin",
+    "disclaimer": "This data was produced from the CoinDesk Bitcoin Price Index (USD). Non-USD currency data converted using hourly conversion rate from openexchangerates.org",
+    "time": {
+        "updated": "Oct 25, 2023 15:52:00 UTC",
+        "updatedISO": "2023-10-25T15:52:00+00:00",
+        "updateduk": "Oct 25, 2023 at 16:52 BST"
+    }
+}
