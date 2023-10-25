@@ -101,5 +101,11 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5
+    },
+    title:{
+        backgroundColor: 'red'
+    },
+    item:{
+        backgroundColor: '#aabbcc'
     }
 });

@@ -6,8 +6,8 @@ const CreateApiHook = () =>{
     const getData = async (url) => {
         console.log("get data called");
         axios.get(url).then((response)=>{
-            console.log(response.data.bpi);
-            setData(response.data.bpi);
+            console.log(response.data);
+            setData(response.data);
         });
     }
 

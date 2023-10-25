@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
-import { FlatList } from "react-native";
+import { FlatList, SectionList } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
     StyleSheet,
@@ -25,8 +25,14 @@ export default function MainScreen3() {
     const { data, getData } = CreateApiHook();
 
     const data2 = [
-        { rate: 1, symbol: 'b', key: 1 },
-        { rate: 22, symbol: 'abc', key: 2 }
+        {
+            title: "title1",
+            data: ['aaa', 'bbb']
+        },    
+        {
+            title: "title1",
+            data: ['aaa', 'bbb']
+        },       
     ];
     //
     useEffect(() => {
@@ -42,16 +48,16 @@ export default function MainScreen3() {
             <Text>
                 Loading data...
             </Text>
-            <FlatList
-                data={Object.values(data)}
-                keyExtractor={(item) => item.code}
+            <SectionList
+                sections={data2}
+                keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => (
-                    <View style={styles.listitem}>
-                        <Text>{item.description}</Text>
-                        <Text>Code: {item.code}</Text>
-                        <Text>Rate: {item.rate}</Text>
-                        <Text>Symbol: {item.symbol}</Text>
+                    <View style={styles.item}>
+                        <Text>{item}</Text>
                     </View>
+                )}
+                renderSectionHeader={({ section: { title } }) => (
+                    <Text style={styles.title}>{title}</Text>
                 )}
             />
         </SafeAreaView>

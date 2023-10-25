@@ -23,7 +23,7 @@ export default function App() {
             <Stack.Navigator>
             <Stack.Screen
                     name="MainScreen3"
-                    component={MainScreen2}
+                    component={MainScreen3}
                     options={{
                         headerShown: false,
                     }}
