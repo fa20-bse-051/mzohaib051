@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 import { FlatList } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -14,44 +13,74 @@ import {
 
 import CreateApiHook from "./ApiHook";
 import { styles } from "./Styles";
-import Database from "./Database";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Searchbar } from "react-native-paper";
 
 
 export default function MainScreen2() {
     const navigation = useNavigation();
     const route = useRoute();
+    const baseUrl = "http://139.59.177.72/";
+
+    const [searchQuery, setSearchQuery] = useState('');
 
     const { data, getData } = CreateApiHook();
+    const [newData, setNewData] = useState(data);
+    
+    function onBookClick(bookTitle, chapters) {
+        navigation.navigate('MainScreen3', { bookTitle, chapters });
+    }
 
-    const data2 = [
-        { rate: 1, symbol: 'b', key: 1 },
-        { rate: 22, symbol: 'abc', key: 2 }
-    ];
     //
     useEffect(() => {
         console.log("use effect");
 
-        getData("https://api.coindesk.com/v1/bpi/currentprice.json");
+        getData("http://139.59.177.72/api/books?page=1");
 
     }, []);
+
+    useEffect(()=>{
+        setNewData(data);
+        console.log("test1")
+    }, [data]);
+
+    const onChangeSearch = query => {
+        setSearchQuery(query);
+        const filteredData = data.filter((book)=>  book.title.toLowerCase().includes(searchQuery.toLowerCase()));
+        setNewData(filteredData.length != 0 || searchQuery !== ""? filteredData : data);
+        
+    };
+
 
     return (
         <SafeAreaView style={[styles.container]}>
 
-            <Text>
-                Loading data...
+            <Text style={styles.heading}>
+                Featured Books
             </Text>
+            <View style={styles.spacing}>
+
+            </View>
+            <Searchbar
+                placeholder="Search"
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+            />
             <FlatList
-                data={Object.values(data)}
-                keyExtractor={(item) => item.code}
+                data={newData}
+                keyExtractor={(item) => item._id}
+                horizontal={true}
                 renderItem={({ item }) => (
-                    <View style={styles.listitem}>
-                        <Text>{item.description}</Text>
-                        <Text>Code: {item.code}</Text>
-                        <Text>Rate: {item.rate}</Text>
-                        <Text>Symbol: {item.symbol}</Text>
-                    </View>
+                    <TouchableOpacity onPress={() => { onBookClick(item.title, item.chapters) }}>
+                        <View style={styles.listitem}>
+                            <Image
+                                source={{ uri: baseUrl + item.coverPhotoUri }}
+                                style={styles.thumbnail}
+                            />
+                            <Text>{item.title}</Text>
+                            <Text>{item.author.name}</Text>
+                        </View>
+                    </TouchableOpacity>
                 )}
             />
         </SafeAreaView>

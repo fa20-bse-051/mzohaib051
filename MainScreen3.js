@@ -3,18 +3,11 @@ import { useState, useEffect } from "react";
 import { FlatList, SectionList } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
-    StyleSheet,
     Text,
     View,
-    Image,
-    TextInput,
-    TouchableOpacity,
-    Alert,
 } from "react-native";
 
-import CreateApiHook from "./ApiHook";
 import { styles } from "./Styles";
-import Database from "./Database";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -22,43 +15,25 @@ export default function MainScreen3() {
     const navigation = useNavigation();
     const route = useRoute();
 
-    const { data, getData } = CreateApiHook();
+    const { bookTitle, chapters } = route.params;
 
-    const data2 = [
-        {
-            title: "title1",
-            data: ['aaa', 'bbb']
-        },    
-        {
-            title: "title1",
-            data: ['aaa', 'bbb']
-        },       
-    ];
-    //
-    useEffect(() => {
-        console.log("use effect");
-
-        getData("https://api.coindesk.com/v1/bpi/currentprice.json");
-
-    }, []);
 
     return (
         <SafeAreaView style={[styles.container]}>
 
-            <Text>
-                Loading data...
+            <Text style={styles.heading}>
+                Chapters from {bookTitle}
             </Text>
-            <SectionList
-                sections={data2}
-                keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => (
-                    <View style={styles.item}>
-                        <Text>{item}</Text>
+            <FlatList
+                data={chapters}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                    <View style={{ margin: 10 }}>
+                        <Text>{(index + 1).toString()}.  {item}</Text>
                     </View>
                 )}
-                renderSectionHeader={({ section: { title } }) => (
-                    <Text style={styles.title}>{title}</Text>
-                )}
+
+                showsHorizontalScrollIndicator={false}
             />
         </SafeAreaView>
     );

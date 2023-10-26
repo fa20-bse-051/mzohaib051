@@ -59,6 +59,9 @@ export const styles = StyleSheet.create({
     heading: {
         fontSize: 20,
         fontWeight: "bold",
+        backgroundColor: "#00fa",
+        color: 'white',
+        padding: 10
     },
     spacing: {
         height: 30,
@@ -96,6 +99,8 @@ export const styles = StyleSheet.create({
     },
     listitem: {
         backgroundColor: 'lightgrey',
+        with: 120,
+        height: 200,
         margin: 10,
         padding: 5,
         justifyContent: 'center',
@@ -107,5 +112,8 @@ export const styles = StyleSheet.create({
     },
     item:{
         backgroundColor: '#aabbcc'
+    },
+    thumbnail:{
+        width: 100, height: 150
     }
 });
